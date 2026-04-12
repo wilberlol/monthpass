@@ -1,19 +1,7 @@
 # MonthPass 設定檔
 
 database:
-  type: sqlite   # sqlite, mysql, h2
-  sqlite:
-    file: plugins/MonthPass/data.db
-  h2:
-    file: plugins/MonthPass/data
-  mysql:
-    host: localhost
-    port: 3306
-    database: monthpass
-    username: root
-    password: ''
-    pool-size: 10
-    connection-timeout: 30000
+  file: plugins/MonthPass/data.db   # SQLite 資料庫路徑
 
 timezone: Asia/Taipei
 date-format: "yyyy/MM/dd"

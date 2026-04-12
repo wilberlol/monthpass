@@ -3,8 +3,6 @@ package dev.wilber.monthpass;
 import dev.wilber.monthpass.command.MonthPassCommand;
 import dev.wilber.monthpass.config.ConfigManager;
 import dev.wilber.monthpass.database.Database;
-import dev.wilber.monthpass.database.H2Database;
-import dev.wilber.monthpass.database.MySQLDatabase;
 import dev.wilber.monthpass.database.SQLiteDatabase;
 import dev.wilber.monthpass.listener.PlayerJoinListener;
 import dev.wilber.monthpass.listener.PlayerQuitListener;
@@ -212,15 +210,7 @@ public class MonthPass extends JavaPlugin {
     }
 
     private Database createDatabase() {
-        String type = configManager.getDatabaseType();
-        switch (type) {
-            case "mysql":
-                return new MySQLDatabase(this);
-            case "h2":
-                return new H2Database(this);
-            default:
-                return new SQLiteDatabase(this);
-        }
+        return new SQLiteDatabase(this);
     }
 
     public static MonthPass getInstance() {

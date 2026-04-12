@@ -146,44 +146,8 @@ public class ConfigManager {
         return config.getString("points-display-unit", "點");
     }
 
-    public String getDatabaseType() {
-        return config.getString("database.type", "sqlite").toLowerCase();
-    }
-
     public String getSQLiteFile() {
-        return config.getString("database.sqlite.file", "plugins/MonthPass/data.db");
-    }
-
-    public String getH2File() {
-        return config.getString("database.h2.file", "plugins/MonthPass/data");
-    }
-
-    public String getMySQLHost() {
-        return config.getString("database.mysql.host", "localhost");
-    }
-
-    public int getMySQLPort() {
-        return config.getInt("database.mysql.port", 3306);
-    }
-
-    public String getMySQLDatabase() {
-        return config.getString("database.mysql.database", "monthpass");
-    }
-
-    public String getMySQLUsername() {
-        return config.getString("database.mysql.username", "root");
-    }
-
-    public String getMySQLPassword() {
-        return config.getString("database.mysql.password", "");
-    }
-
-    public int getMySQLPoolSize() {
-        return config.getInt("database.mysql.pool-size", 10);
-    }
-
-    public long getMySQLConnectionTimeout() {
-        return config.getLong("database.mysql.connection-timeout", 30000L);
+        return config.getString("database.file", "plugins/MonthPass/data.db");
     }
 
     public FileConfiguration getRawConfig() {
