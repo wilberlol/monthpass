@@ -1,0 +1,57 @@
+prefix: '&8[&6月卡&8] '
+
+no-permission: '&c你沒有執行此指令的權限。'
+player-not-found: '&c找不到玩家：{player}'
+card-not-found: '&c找不到月卡：{card}'
+invalid-days: '&c無效的天數格式，請使用如 30d 的格式。'
+console-not-allowed: '&c此指令不允許控制台執行。'
+
+give-success: '&a已給予 &e{player} &a月卡 &6{card} &a，有效期 &e{days} &a天。'
+give-success-stacked: '&a已疊加 &e{player} &a的月卡 &6{card}&a，新增 &e{days} &a天，剩餘 &e{remaining} &a天。'
+set-success: '&a已設定 &e{player} &a的月卡 &6{card} &a剩餘 &e{days} &a天。'
+remove-success: '&a已移除 &e{player} &a的月卡 &6{card}&a。'
+remove-not-found: '&c{player} 沒有月卡 &6{card}&c。'
+
+receive-card: '&a你獲得了月卡 &6{card}&a，有效期至 &e{expire}&a！'
+expire-card: '&c你的月卡 &6{card} &c已到期。'
+expiry-warning: '&c你的月卡 &6{card} &c還剩 &e{days} &c天到期！'
+
+sign-success: '&a簽到成功！已領取以下月卡的每日獎勵：'
+sign-success-card: '  &7- &6{card}'
+sign-no-cards: '&c你目前沒有可簽到的月卡。'
+sign-already: '&e今天已經簽到過了！'
+sign-inventory-full: '&c背包空間不足，請清理背包後再簽到。需要 &e{slots} &c個空格。'
+sign-reminder: '&e你有月卡獎勵尚未領取！&6[點此簽到]'
+
+check-header: '&6===== {player} 的月卡 ====='
+check-card-line: '  &7{card}: &e{days} &7天 &8(到期：{expire}) &7| 今日已簽到：{claimed}'
+check-card-line-claimed-yes: '&a是'
+check-card-line-claimed-no: '&c否'
+check-no-cards: '  &7該玩家沒有持有任何月卡。'
+
+list-header: '&6===== 持有月卡 {card} 的玩家 ====='
+list-entry: '  &7{player}: &e{days} &7天 &8(到期：{expire})'
+list-empty: '  &7目前沒有玩家持有此月卡。'
+
+reload-success: '&aMonthPass 已重新載入。'
+
+fly-enabled: '&a飛行已開啟！在此世界使用月卡飛行中。'
+fly-no-permission: '&c你在世界 &e{world} &c沒有月卡飛行權限。'
+fly-module-disabled: '&c飛行模組目前已停用。'
+
+buy-success: '&a購買成功！獲得 &6{card} &ax &e{days} &a天，花費 &e{price}&a。'
+buy-not-available: '&c月卡 &6{card} &c目前未開放購買。'
+buy-no-economy: '&c伺服器尚未安裝 Vault 經濟插件，無法購買此月卡。'
+buy-no-playerpoints: '&c伺服器尚未安裝 PlayerPoints 插件，無法購買此月卡。'
+buy-insufficient-funds: '&c積分/餘額不足！購買 &6{card} &c需要 &e{price}&c，你目前有 &e{balance}&c。'
+
+help-header: '&6===== MonthPass 指令說明 ====='
+help-fly: '&e/monthpass fly &7- 開啟月卡飛行'
+help-buy: '&e/monthpass buy <月卡> &7- 購買月卡'
+help-give: '&e/monthpass give <玩家> <月卡> <天數> &7- 給予月卡'
+help-set: '&e/monthpass set <玩家> <月卡> <天數> &7- 設定剩餘天數'
+help-remove: '&e/monthpass remove <玩家> <月卡> &7- 移除月卡'
+help-check: '&e/monthpass check [玩家] &7- 查看月卡狀態'
+help-sign: '&e/monthpass sign &7- 領取每日簽到獎勵'
+help-list: '&e/monthpass list <月卡> &7- 列出持有該月卡的玩家'
+help-reload: '&e/monthpass reload &7- 重新載入設定'

@@ -1,0 +1,27 @@
+name: MonthPass
+version: 1.0.0
+main: dev.wilber.monthpass.MonthPass
+api-version: '1.21'
+description: 月卡系統插件
+author: wilber
+softdepend:
+  - PlaceholderAPI
+  - Vault
+  - PlayerPoints
+
+commands:
+  monthpass:
+    description: MonthPass 主指令
+    usage: /monthpass <子指令>
+    aliases: [mp]
+
+permissions:
+  monthpass.admin:
+    description: 所有管理指令權限
+    default: op
+  monthpass.check.other:
+    description: 查看其他玩家月卡狀態
+    default: op
+  monthpass.fly.bypass:
+    description: 跳過月卡飛行檢查
+    default: false

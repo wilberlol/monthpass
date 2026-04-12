@@ -1,0 +1,116 @@
+# MonthPass 設定檔
+
+database:
+  type: sqlite   # sqlite, mysql, h2
+  sqlite:
+    file: plugins/MonthPass/data.db
+  h2:
+    file: plugins/MonthPass/data
+  mysql:
+    host: localhost
+    port: 3306
+    database: monthpass
+    username: root
+    password: ''
+    pool-size: 10
+    connection-timeout: 30000
+
+timezone: Asia/Taipei
+date-format: "yyyy/MM/dd"
+
+sign-reminder:
+  enable: true
+  interval: 60   # 秒
+  message: '&e你有月卡獎勵尚未領取！&6[點此簽到]'
+
+fly:
+  enable: true   # 是否啟用月卡飛行模組
+  enforce-interval-ticks: 40  # 飛行補正任務間隔（ticks），最低 10
+
+# PlayerPoints 積分的顯示單位（用於訊息中）
+points-display-unit: '點'
+
+cards:
+  vip:
+    display-name: '&6VIP 月卡'
+    permission: 'monthpass.vip'
+
+    on-activate:
+      commands:
+        - 'eco give {player} 1000'
+
+    on-expire:
+      commands:
+        - 'broadcast {player} 的VIP月卡已到期'
+
+    daily-reward:
+      commands:
+        - 'eco give {player} 100'
+      items:
+        - material: DIAMOND
+          amount: 1
+          name: '&b每日簽到鑽石'
+          lore:
+            - '&7來自 &6VIP月卡 &7的每日獎勵'
+            - '&7日期：{date}'
+          custom-model-data: 0
+          enchantments: {}
+          item-flags:
+            - HIDE_ENCHANTS
+
+    fly:
+      enable: true
+      worlds:
+        - world
+        - world_nether
+
+    expiry-warning:
+      days: 3
+      message: '&c你的 &6{card} &c還剩 &e{days} &c天到期！'
+
+    shop:
+      enable: true          # 是否開放玩家購買
+      currency: vault       # 貨幣種類：vault（Vault 經濟）或 points（PlayerPoints）
+      price: 500.0          # 價格（Vault 用小數，points 用整數）
+      days: 30              # 購買後獲得的天數
+      buy-permission: ''    # 購買所需權限，空字串=所有玩家可買
+
+  mvp:
+    display-name: '&5MVP 月卡'
+    permission: 'monthpass.mvp'
+
+    on-activate:
+      commands:
+        - 'eco give {player} 3000'
+
+    on-expire:
+      commands: []
+
+    daily-reward:
+      commands:
+        - 'eco give {player} 300'
+      items:
+        - material: EMERALD
+          amount: 3
+          name: '&a每日簽到綠寶石'
+          lore:
+            - '&7來自 &5MVP月卡 &7的每日獎勵'
+          custom-model-data: 0
+          enchantments: {}
+          item-flags: []
+
+    fly:
+      enable: true
+      worlds:
+        - world
+
+    expiry-warning:
+      days: 5
+      message: '&c你的 &5{card} &c還剩 &e{days} &c天到期！'
+
+    shop:
+      enable: true
+      currency: points      # MVP 用 PlayerPoints 積分購買
+      price: 3000           # 3000 點
+      days: 30
+      buy-permission: ''
