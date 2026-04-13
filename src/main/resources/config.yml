@@ -52,6 +52,10 @@ cards:
         - world
         - world_nether
 
+    exp-boost:
+      enable: true
+      multiplier: 1.5   # 1.5 倍經驗值（多張卡只取最高倍率，不疊加）
+
     expiry-warning:
       days: 3
       message: '&c你的 &6{card} &c還剩 &e{days} &c天到期！'
@@ -91,6 +95,10 @@ cards:
       enable: true
       worlds:
         - world
+
+    exp-boost:
+      enable: true
+      multiplier: 2.0   # 2.0 倍經驗值
 
     expiry-warning:
       days: 5

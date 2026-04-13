@@ -657,6 +657,25 @@ public class CardManager {
         });
     }
 
+    /**
+     * 取得玩家所有有效月卡中最高的 EXP 倍率。
+     * 若沒有任何月卡啟用 exp-boost，回傳 1.0（無加成）。
+     */
+    public double getBestExpMultiplier(Player player) {
+        List<PlayerCardData> cards = playerCardsCache.get(player.getUniqueId());
+        if (cards == null || cards.isEmpty()) return 1.0;
+
+        double best = 1.0;
+        for (PlayerCardData data : cards) {
+            CardDefinition def = configManager.getCard(data.getCardId());
+            if (def != null && def.isExpBoostEnabled()) {
+                double m = def.getExpBoostMultiplier();
+                if (m > best) best = m;
+            }
+        }
+        return best;
+    }
+
     public Database getDatabase() {
         return database;
     }

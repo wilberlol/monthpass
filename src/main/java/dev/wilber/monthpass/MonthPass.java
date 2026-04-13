@@ -4,6 +4,7 @@ import dev.wilber.monthpass.command.MonthPassCommand;
 import dev.wilber.monthpass.config.ConfigManager;
 import dev.wilber.monthpass.database.Database;
 import dev.wilber.monthpass.database.SQLiteDatabase;
+import dev.wilber.monthpass.listener.PlayerExpChangeListener;
 import dev.wilber.monthpass.listener.PlayerJoinListener;
 import dev.wilber.monthpass.listener.PlayerQuitListener;
 import dev.wilber.monthpass.listener.PlayerWorldChangeListener;
@@ -73,6 +74,8 @@ public class MonthPass extends JavaPlugin {
                 new PlayerWorldChangeListener(this, flyManager), this);
         getServer().getPluginManager().registerEvents(
                 new PlayerQuitListener(cardManager), this);
+        getServer().getPluginManager().registerEvents(
+                new PlayerExpChangeListener(cardManager), this);
 
         // 註冊 Command
         MonthPassCommand cmd = new MonthPassCommand(this, cardManager, flyManager, configManager);

@@ -19,6 +19,8 @@ public class CardDefinition {
     private FlyConfig fly;
     private ExpiryWarningConfig expiryWarning;
     private ShopConfig shop;
+    private boolean expBoostEnable = false;
+    private double expBoostMultiplier = 1.0;
 
     public static CardDefinition fromConfig(String id, ConfigurationSection section) {
         CardDefinition card = new CardDefinition();
@@ -59,6 +61,14 @@ public class CardDefinition {
         // shop
         card.shop = ShopConfig.fromConfig(section.getConfigurationSection("shop"));
 
+        // exp-boost
+        ConfigurationSection expBoostSec = section.getConfigurationSection("exp-boost");
+        if (expBoostSec != null) {
+            card.expBoostEnable = expBoostSec.getBoolean("enable", false);
+            card.expBoostMultiplier = expBoostSec.getDouble("multiplier", 1.0);
+            if (card.expBoostMultiplier < 1.0) card.expBoostMultiplier = 1.0; // 最低 1.0 倍
+        }
+
         return card;
     }
 
@@ -88,4 +98,6 @@ public class CardDefinition {
     public FlyConfig getFly() { return fly; }
     public ExpiryWarningConfig getExpiryWarning() { return expiryWarning; }
     public ShopConfig getShop() { return shop; }
+    public boolean isExpBoostEnabled() { return expBoostEnable; }
+    public double getExpBoostMultiplier() { return expBoostMultiplier; }
 }
