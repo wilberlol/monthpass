@@ -1,6 +1,6 @@
 # MonthPass — Minecraft 月卡系統插件
 
-> 適用於 **Purpur / Paper 1.21.1**，支援 SQLite、MySQL、H2 三種資料庫，並整合 Vault、PlayerPoints 雙貨幣系統。
+> 適用於 **Purpur / Paper 1.21.11**，整合 Vault、PlayerPoints 雙貨幣系統。
 
 ---
 
