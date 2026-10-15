@@ -72,6 +72,20 @@ public class MonthPassCommand implements CommandExecutor, TabCompleter {
                 return handleBuy(sender, args);
             case "fly":
                 return handleFly(sender);
+            case "makeup": { // /mp makeup <玩家> <張數>：補簽卡由獎勵指令發放（管理員／console）
+                if (!hasAdminPermission(sender) || args.length < 3) return true;
+                Player t = Bukkit.getPlayerExact(args[1]);
+                if (t == null) return true;
+                try { cardManager.getStreakManager().addMakeup(t, Integer.parseInt(args[2])); } catch (NumberFormatException ignored) { }
+                return true;
+            }
+            case "streak":
+                if (sender instanceof Player) {
+                    Player sp = (Player) sender;
+                    sp.sendMessage(ColorUtil.color("&8[&6月卡&8] &a連續簽到 &e" + cardManager.getStreakManager().streak(sp)
+                            + " &a天，補簽卡 &e" + cardManager.getStreakManager().makeup(sp) + " &a張"));
+                }
+                return true;
             default:
                 sendHelp(sender);
                 return true;
@@ -495,7 +509,7 @@ public class MonthPassCommand implements CommandExecutor, TabCompleter {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1) {
-            List<String> subs = new ArrayList<>(Arrays.asList("buy", "sign", "check", "fly"));
+            List<String> subs = new ArrayList<>(Arrays.asList("buy", "sign", "check", "fly", "streak"));
             if (hasAdminPermission(sender)) {
                 subs.addAll(Arrays.asList("give", "set", "remove", "list", "reload"));
             }

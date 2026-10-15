@@ -61,6 +61,24 @@ public class MonthPassExpansion extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String params) {
         if (player == null) return "";
+        if (params.equals("next") && player.getPlayer() != null) {
+            return cardManager.getStreakManager().nextInfo(player.getPlayer());
+        }
+        if ((params.equals("streak") || params.equals("makeup")) && player.getPlayer() != null) {
+            return String.valueOf(params.equals("streak")
+                    ? cardManager.getStreakManager().streak(player.getPlayer())
+                    : cardManager.getStreakManager().makeup(player.getPlayer()));
+        }
+
+        if (params.equals("all_cards") || params.equals("any")) {
+            List<String> names = new java.util.ArrayList<>();
+            for (PlayerCardData c : cardManager.getPlayerCardsFromCache(player.getUniqueId())) {
+                CardDefinition d = configManager.getCard(c.getCardId());
+                if (d != null && !c.isExpired()) names.add(dev.wilber.monthpass.util.ColorUtil.color(d.getDisplayName()));
+            }
+            if (params.equals("any")) return names.isEmpty() ? "false" : "true";
+            return names.isEmpty() ? "無" : String.join("§7, ", names);
+        }
 
         // 嘗試所有已知 card ID，找出哪個是 params 的前綴
         Set<String> cardIds = configManager.getCards().keySet();

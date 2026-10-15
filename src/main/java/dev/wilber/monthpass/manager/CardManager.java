@@ -36,7 +36,12 @@ public class CardManager {
     // FlyManager 後期注入，避免循環依賴
     private FlyManager flyManager;
 
+    private final StreakManager streakManager;
+
+    public StreakManager getStreakManager() { return streakManager; }
+
     public CardManager(MonthPass plugin, Database database, ConfigManager configManager) {
+        this.streakManager = new StreakManager(plugin, this);
         this.plugin = plugin;
         this.database = database;
         this.configManager = configManager;
@@ -415,6 +420,8 @@ public class CardManager {
         for (PlayerCardData cardData : unclaimedCards) {
             database.updateLastClaimDate(uuid, cardData.getCardId(), today);
         }
+
+        streakManager.onSign(player, today);
     }
 
     /**

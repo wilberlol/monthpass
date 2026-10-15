@@ -18,6 +18,47 @@ fly:
   enable: false
   enforce-interval-ticks: 40
 
+# 連續簽到：資料存在玩家 PDC。漏簽時自動消耗補簽卡（漏幾天扣幾張，最多 max-makeup-gap 天）接上連簽，
+# 補簽不重發每日獎勵。cycle：達到天數後新一輪開始，里程碑可重複領。補簽卡由獎勵指令 `mp makeup {player} <張數>` 發放。
+streak:
+  enable: true
+  max-makeup-gap: 3
+  cycle: 60
+  milestones:
+    7:
+      message: '&6連簽 {days} 天！&7獲得 活躍點 10、補簽卡 1、鑽石 8'
+      commands:
+        - 'points give {player} 10 -s'
+        - 'mp makeup {player} 1'
+        - 'minecraft:give {player} minecraft:diamond 8'
+    14:
+      message: '&6連簽 {days} 天！&7獲得 活躍點 20、縮小藥水、巨人藥水、修復次數 ×3、黏液 REINFORCED_PLATE ×4'
+      commands:
+        - 'points give {player} 20 -s'
+        - 'ei give {player} fg_shrink 1'
+        - 'ei give {player} fg_grow 1'
+        - 'minecraft:scoreboard players add {player} fg_repair 3'
+        - 'sf give {player} REINFORCED_PLATE 4'
+    30:
+      message: '&6連簽 {days} 天！&7獲得 活躍點 40、變身藥水 ×2、補簽卡 2、黏液 POWER_CRYSTAL ×2、金蘋果 ×8'
+      commands:
+        - 'points give {player} 40 -s'
+        - 'ei give {player} fg_morph_animal 1'
+        - 'ei give {player} fg_morph_monster 1'
+        - 'mp makeup {player} 2'
+        - 'sf give {player} POWER_CRYSTAL 2'
+        - 'minecraft:give {player} minecraft:enchanted_golden_apple 1'
+    60:
+      message: '&d&l連簽 {days} 天達成！&7獲得 活躍點 100、補簽卡 3、黏液 INFUSED_MAGNET、下界之星 ×2、修復次數 ×10、永久稱號 [連簽達人]'
+      commands:
+        - 'points give {player} 100 -s'
+        - 'mp makeup {player} 3'
+        - 'sf give {player} INFUSED_MAGNET 1'
+        - 'minecraft:give {player} minecraft:nether_star 2'
+        - 'minecraft:scoreboard players add {player} fg_repair 10'
+        - 'lp user {player} permission set deluxetags.tag.mp_streak60 true'
+        - 'broadcast &d{player} &e連續簽到 60 天！'
+
 points-display-unit: '點'
 
 cards:
