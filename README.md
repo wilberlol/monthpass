@@ -212,3 +212,12 @@ mvn clean package
 ## License
 
 MIT © wilber
+
+---
+
+## 廢俱26 (Purpur 26.2) 部署備註
+
+- 原始碼不用改，直接對 Purpur 26.2 API 編譯即可（`javac --release 21 -cp <purpur-api;Vault;PlaceholderAPI;Hikari;sqlite-jdbc> ...`）。
+- `config.26.yml` 是廢俱26 實際使用的設定：兩張卡（`supply` 生存月卡、`premium` 豪華月卡），獎勵只給活躍點、經驗倍率與生存物資，**不發遊戲幣**，並關閉月卡飛行與內建商店。
+- 月卡改在贊助點商店購買：DeluxeMenus 扣贊助點後以後台身分執行 `mp give %player_name% <月卡ID> 30d`。
+- 獎勵指令用 ExcellentEconomy 的 `points give {player} N -s`（活躍點）。

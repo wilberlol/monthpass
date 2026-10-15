@@ -1,0 +1,113 @@
+# MonthPass 設定檔 — 廢俱26
+# 原則：月卡不產生遊戲幣 $（不破壞經濟），獎勵給活躍點、經驗倍率與生存物資。
+# 購買：贊助點商店 (/dshop) 付贊助點後由 DeluxeMenus 執行 `mp give`；這裡的 shop 全部關閉。
+
+database:
+  file: plugins/MonthPass/data.db
+
+timezone: Asia/Taipei
+date-format: "yyyy/MM/dd"
+
+sign-reminder:
+  enable: true
+  interval: 600   # 秒；今天簽到後自動停止
+  message: '&e你有月卡獎勵尚未領取！輸入 &6/mp sign &e簽到'
+
+# 月卡飛行在生存世界會破壞玩法，整個模組關閉
+fly:
+  enable: false
+  enforce-interval-ticks: 40
+
+points-display-unit: '點'
+
+cards:
+  supply:
+    display-name: '&6生存月卡'
+    permission: 'monthpass.supply'
+
+    on-activate:
+      commands:
+        - 'points give {player} 10 -s'
+
+    on-expire:
+      commands: []
+
+    daily-reward:
+      commands:
+        - 'points give {player} 3 -s'
+      items:
+        - material: DIAMOND
+          amount: 1
+          name: '&b每日鑽石'
+          lore:
+            - '&7來自 &6生存月卡 &7的每日獎勵'
+            - '&7日期：{date}'
+        - material: EXPERIENCE_BOTTLE
+          amount: 16
+          name: '&a每日經驗瓶'
+          lore:
+            - '&7來自 &6生存月卡'
+        - material: ENDER_PEARL
+          amount: 2
+          name: '&5每日終界珍珠'
+          lore:
+            - '&7來自 &6生存月卡'
+
+    exp-boost:
+      enable: true
+      multiplier: 1.5
+
+    expiry-warning:
+      days: 3
+      message: '&c你的 &6{card} &c還剩 &e{days} &c天到期！可到 &6/dshop &c續購'
+
+    shop:
+      enable: false
+
+  premium:
+    display-name: '&d豪華月卡'
+    permission: 'monthpass.premium'
+
+    on-activate:
+      commands:
+        - 'points give {player} 30 -s'
+
+    on-expire:
+      commands: []
+
+    daily-reward:
+      commands:
+        - 'points give {player} 6 -s'
+      items:
+        - material: DIAMOND
+          amount: 3
+          name: '&b每日鑽石'
+          lore:
+            - '&7來自 &d豪華月卡 &7的每日獎勵'
+            - '&7日期：{date}'
+        - material: EXPERIENCE_BOTTLE
+          amount: 32
+          name: '&a每日經驗瓶'
+          lore:
+            - '&7來自 &d豪華月卡'
+        - material: ENDER_PEARL
+          amount: 4
+          name: '&5每日終界珍珠'
+          lore:
+            - '&7來自 &d豪華月卡'
+        - material: GOLDEN_CARROT
+          amount: 32
+          name: '&6每日金胡蘿蔔'
+          lore:
+            - '&7來自 &d豪華月卡'
+
+    exp-boost:
+      enable: true
+      multiplier: 2.0
+
+    expiry-warning:
+      days: 5
+      message: '&c你的 &d{card} &c還剩 &e{days} &c天到期！可到 &6/dshop &c續購'
+
+    shop:
+      enable: false

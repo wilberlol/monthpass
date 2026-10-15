@@ -4,3 +4,7 @@ target/
 *.iml
 .vscode/
 *.log
+out/
+*.jar
+cp.txt
+srcs.txt
