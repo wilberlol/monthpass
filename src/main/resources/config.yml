@@ -16,6 +16,11 @@ fly:
   enforce-interval-ticks: 40  # 飛行補正任務間隔（ticks），最低 10
 
 # PlayerPoints 積分的顯示單位（用於訊息中）
+# PlayerPoints 整合（月卡用 currency: points 在指令內購買時才需要）。
+# 關掉後不會去找 PlayerPoints，也不會在啟動時提示。
+playerpoints:
+  enable: true
+
 points-display-unit: '點'
 
 cards:

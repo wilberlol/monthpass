@@ -109,12 +109,15 @@ public class MonthPass extends JavaPlugin {
             getLogger().info("未找到 Vault，currency: vault 的月卡將無法購買。");
         }
 
-        // 連接 PlayerPoints（反射方式，相容所有版本）
+        // 連接 PlayerPoints（反射方式，相容所有版本）。可在 config 的 playerpoints.enable 關掉：
+        // 月卡改用伺服器選單購買、不用 currency: points 時就不必掛，也不會再出現提示。
         playerPointsHook = new PlayerPointsHook(getLogger());
-        if (playerPointsHook.hook()) {
-            getLogger().info("已與 PlayerPoints 整合。");
-        } else {
-            getLogger().info("未找到 PlayerPoints，currency: points 的月卡將無法購買。");
+        if (getConfig().getBoolean("playerpoints.enable", true)) {
+            if (playerPointsHook.hook()) {
+                getLogger().info("已與 PlayerPoints 整合。");
+            } else {
+                getLogger().info("未找到 PlayerPoints，currency: points 的月卡將無法購買。");
+            }
         }
 
         getLogger().info("MonthPass 已啟動！");
