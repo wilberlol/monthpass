@@ -9,13 +9,21 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FlyManager {
 
     private final MonthPass plugin;
     private final CardManager cardManager;
     private final ConfigManager configManager;
+
+    /**
+     * 由月卡給予飛行的玩家。撤銷時只撤自己給的：
+     * 原本只要「沒有月卡飛行資格」就一律關掉飛行，會把黏液科技（無限矩陣等）、其他插件給的飛行在傳送、坐下後誤關。
+     */
+    private final Set<UUID> granted = ConcurrentHashMap.newKeySet();
 
     public FlyManager(MonthPass plugin, CardManager cardManager, ConfigManager configManager) {
         this.plugin = plugin;
@@ -63,12 +71,11 @@ public class FlyManager {
         if (canFly) {
             if (!player.getAllowFlight()) {
                 player.setAllowFlight(true);
+                granted.add(player.getUniqueId());
             }
-        } else {
-            if (player.getAllowFlight()) {
-                if (player.isFlying()) player.setFlying(false);
-                player.setAllowFlight(false);
-            }
+        } else if (granted.remove(player.getUniqueId()) && player.getAllowFlight()) {
+            if (player.isFlying()) player.setFlying(false);
+            player.setAllowFlight(false);
         }
     }
 
@@ -102,6 +109,7 @@ public class FlyManager {
 
         if (shouldHaveFly(player) && !player.getAllowFlight()) {
             player.setAllowFlight(true);
+            granted.add(player.getUniqueId());
         }
     }
 
@@ -135,6 +143,7 @@ public class FlyManager {
         GameMode gm = player.getGameMode();
         if (gm == GameMode.CREATIVE || gm == GameMode.SPECTATOR) return;
         if (player.hasPermission("monthpass.fly.bypass")) return;
+        if (!granted.remove(player.getUniqueId())) return; // 不是月卡給的飛行就不動
         if (player.isFlying()) player.setFlying(false);
         player.setAllowFlight(false);
     }
@@ -146,6 +155,7 @@ public class FlyManager {
     public boolean grantFly(Player player) {
         if (!shouldHaveFly(player)) return false;
         player.setAllowFlight(true);
+        granted.add(player.getUniqueId());
         return true;
     }
 }
